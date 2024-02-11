@@ -11,7 +11,7 @@ import SocialLogin from '../../components/Shared/SocialLogin/SocialLogin'
 
 
 const SignUp = () => {
-  const { createUser, updateUserProfile,logOut, loading  } = useAuth()
+  const { createUser, updateUserProfile,logOut, loading,setLoading  } = useAuth()
   const [showPassword, setShowPassword] = useState(false)
   const [registrationError, setRegistrationError] = useState('')
   const navigate=useNavigate()
@@ -34,19 +34,22 @@ const SignUp = () => {
                     toast.success('User account created successfully! Please Login')
                     logOut()
                     navigate('/login')
+                    setLoading(false)
                     return
-                    
                   })
               })
             return
           })
           .catch(error => {
             toast.error(error)
+            setLoading(false)
+            return
           })
 
       })
       .catch((error) => {
         toast.error(error.message)
+        setLoading(false)
         return
       })
 
@@ -56,23 +59,23 @@ const SignUp = () => {
       <Helmet>
         <title>Kuber | Register </title>
       </Helmet>
-      <div className='container md:w-10/12/ lg:w-2/4 mx-auto px-4'>
+      <div className='container w-9/12 md:w-2/4 lg:w-2/6 mx-auto px-2'>
         <div className='bg-white px-6 py-10 rounded-lg'>
-          <h1 className='text-2xl font-medium text-black1 mb-5'>Create your account</h1>
+          <h1 className='text-2xl font-bold text-black1 mb-5'>Create your account</h1>
           <form onSubmit={registration}>
-            <label className='text-lg font-normal text-black1 mb-1 ml-1 mt-5 block'>Name</label>
-            <input className='text-base placeholder:text-textColor bg-sectionbg rounded-lg border duration-300 focus:bg-white focus:shadow-sm focus:border focus:border-primery outline-none py-4 px-5 w-full' placeholder='Name' name='name' type='text' />
+            <label className='text-base font-light text-black1  ml-1 mt-5 block'>Name</label>
+            <input className='text-base placeholder:text-textColor bg-neutral-50 rounded-lg border duration-300 focus:bg-white focus:shadow-sm focus:border focus:border-primery outline-none py-2.5 px-3 w-full' placeholder='Name' name='name' type='text' />
 
-            <label className='text-lg font-normal text-black1 mb-1 ml-1 mt-5 block'>Email</label>
-            <input className='text-base placeholder:text-textColor bg-sectionbg rounded-lg border duration-300 focus:bg-white focus:shadow-sm focus:border focus:border-primery outline-none py-4 px-5 w-full' placeholder='Email' name='email' type='email' required />
+            <label className='text-base font-light text-black1  ml-1 mt-3 block'>Email</label>
+            <input className='text-base placeholder:text-textColor bg-neutral-50 rounded-lg border duration-300 focus:bg-white focus:shadow-sm focus:border focus:border-primery outline-none py-3 px-3 w-full' placeholder='Email' name='email' type='email' required />
 
-            <label className='text-lg font-normal text-black1 mb-1 ml-1 mt-5 block'>Photo</label>
-            <input className='text-base placeholder:text-textColor bg-sectionbg rounded-lg border duration-300 focus:bg-white focus:shadow-sm focus:border focus:border-primery outline-none py-4 px-5 w-full' placeholder='Profile Image' name='image' type='file' />
+            <label className='text-base font-light text-black1  ml-1 mt-3 block'>Photo</label>
+            <input className='text-base placeholder:text-textColor bg-neutral-50 rounded-lg border duration-300 focus:bg-white focus:shadow-sm focus:border focus:border-primery outline-none py-3 px-3 w-full' placeholder='Profile Image' name='image' type='file' />
 
             <label className='text-lg font-normal text-black1 mb-1 ml-1 mt-4 block'>Password</label>
 
             <div className='h-16 relative'>
-              <input className='text-base placeholder:text-textColor bg-sectionbg rounded-lg border duration-300 focus:bg-white focus:shadow-sm focus:border focus:border-primery outline-none py-4 px-5 w-full' placeholder='Password' name='password' type={showPassword ? 'text' : 'password'} required />
+              <input className='text-base placeholder:text-textColor bg-neutral-50 rounded-lg border duration-300 focus:bg-white focus:shadow-sm focus:border focus:border-primery outline-none py-3 px-3 w-full' placeholder='Password' name='password' type={showPassword ? 'text' : 'password'} required />
               <span className='absolute top-4 right-5 text-2xl' onClick={() => setShowPassword(!showPassword)}>
                 {
                   showPassword ? <PiEye> </PiEye> : <PiEyeSlash> </PiEyeSlash>
@@ -86,7 +89,7 @@ const SignUp = () => {
             </div>
             <button  className='text-lg px-10 py-[14px] bg-primery hover:bg-hover rounded-lg text-white mt-5 w-full inline-block duration-300' >
               {
-                loading? <ImSpinner9 className='animate-spin text-center inline-block text-3xl'> </ImSpinner9> : <span>Register</span>
+               loading ? <div className='flex gap-2 justify-center text-neutral-300 text-base font-semibold'><ImSpinner9 className='animate-spin text-center inline-block text-2xl'> </ImSpinner9> Registration</div> : <span className='text-neutral-100 text-base font-semibold'>Registration</span>
               }
             </button>
             <h1 className='text-center text-lg font-normal text-black1  my-3'> Don't you have an account?

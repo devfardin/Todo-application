@@ -13,7 +13,7 @@ const SocialLogin = () => {
             .then(async(res) => {
                 await saveUser(res.user)
                 toast.success("Account successfully created. You can now log in.");
-                navigate('/dashboard')
+                navigate('/dashboard/my-task')
                 return
             })
             .catch((error) => {
@@ -21,19 +21,7 @@ const SocialLogin = () => {
                 return
             })
     }
-    const facebooklogin = () => {
-        signInWithFacebook()
-            .then(async(res) => {
-                await saveUser(res.user)
-                toast.success("success", "Account successfully created. You can now log in.", "success");
-                navigate('/dashboard')
-                return
-            })
-            .catch((error) => {
-                toast.error(`Account creation failed, ${error} `)
-                return
-            })
-    }
+ 
 
 
     return (
@@ -44,14 +32,7 @@ const SocialLogin = () => {
                 </div>
                 <h1 className='text-lg font-normal col-span-4 text-center text-gray1'> Continue with Google</h1>
             </div>
-            <div className='mt-4'>
-                <div onClick={facebooklogin} className='border border-primery rounded-full cursor-pointer px-3 py-3 grid grid-cols-6 items-center'>
-                    <div className='justify-center items-center bg-none'>
-                        <FaFacebook className='text-secondary text-4xl '></FaFacebook>
-                    </div>
-                    <h1 className='text-lg font-normal col-span-4 text-center text-gray1'> Continue with Facebook</h1>
-                </div>
-            </div>
+          
         </div>
     )
 }

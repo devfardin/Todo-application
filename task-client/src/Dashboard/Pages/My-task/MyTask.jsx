@@ -7,6 +7,9 @@ import { Link } from 'react-router-dom';
 
 const MyTask = ({ task, loading }) => {
     const { _id, title, deadline, time, priority, descriptions, type, status } = task
+
+    // Close color Bg, text='#FDDCE3', '#F11541'
+    // Process color Bg, text='#DDEDE6', '#198754'
     return (
         <tr className='border-b py-10  border-sectionbg'>
             <td>
@@ -44,15 +47,7 @@ const MyTask = ({ task, loading }) => {
                 <h1 className='text-base text-textColor font-normal'>{descriptions}</h1>
             </td>
             <th>
-                <div className='flex gap-x-3'>
-                    <Link to={`/dashboard/updateservery/${_id}`} className="w-7 h-7 grid place-items-center  bg-[#DDE8F8]  rounded-full tooltip font-normal" data-tip="Edit Survery">  <LiaEdit className='text-xl  text-primery'> </LiaEdit>
-                    </Link>
-
-                    <button onClick={() => handleDelete(_id)} className="w-7 h-7 grid place-items-center  bg-[#DDE8F8]  rounded-full tooltip font-normal" data-tip="Delete Survery">
-                        <RxCross2 className='text-xl  text-primery'> </RxCross2>
-                    </button>
-
-                </div>
+               
 
             </th>
         </tr>

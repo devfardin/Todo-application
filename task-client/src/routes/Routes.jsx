@@ -6,8 +6,10 @@ import Login from '../pages/Login/Login'
 import SignUp from '../pages/SignUp/SignUp'
 import DashboardLayout from '../layouts/DashboardLayout'
 import MyTaskes from '../Dashboard/Pages/My-task/MyTaskes'
-import AddTask from '../Dashboard/Pages/AddTask/AddTask'
 import Private from '../components/PrivatePage/Private'
+import ProcessTask from '../Dashboard/Pages/ProcessTask/ProcessTask'
+import CompleteTask from '../Dashboard/Pages/CompleteTask/CompleteTask'
+import CloseTask from '../Dashboard/Pages/CloseTask/CloseTask'
 
 export const router = createBrowserRouter([
   {
@@ -39,9 +41,17 @@ export const router = createBrowserRouter([
     element:<Private><MyTaskes/></Private>
    },
    {
-    path: 'add-task',
-    element: <Private><AddTask/></Private>
-   }
+    path: 'process-task',
+    element: <Private><ProcessTask/></Private>
+   },
+   {
+    path: 'complete-task',
+    element: <Private><CompleteTask/></Private>
+   },
+   {
+    path: 'close-task',
+    element: <Private><CloseTask/></Private>
+   },
 
  
    ]

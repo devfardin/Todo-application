@@ -1,7 +1,8 @@
 import axios from "axios";
 import { clearCookie } from "./auth";
 const axiosSecure= axios.create({
-    baseURL:import.meta.env.VITE_AXIOX_BAGEURL,
+    // baseURL:import.meta.env.VITE_AXIOX_BAGEURL,
+    baseURL:'http://localhost:5000',
     // withCredentials: true
 })
 

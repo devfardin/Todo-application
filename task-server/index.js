@@ -3,7 +3,7 @@ const app = express()
 require('dotenv').config()
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
-const { MongoClient, ServerApiVersion } = require('mongodb')
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb')
 const jwt = require('jsonwebtoken')
 const morgan = require('morgan')
 const port = process.env.PORT || 5000
@@ -89,35 +89,69 @@ async function run() {
       const result = await usersCollection.updateOne(
         query,
         {
-          $set: { ...user},
+          $set: { ...user },
         },
         options
       )
       res.send(result)
     })
 
-    app.post('/submittask', async(req, res)=>{
-      const taskInfo= req.body
+    app.post('/submittask', async (req, res) => {
+      const taskInfo = req.body
       const result = await taskCollection.insertOne(taskInfo)
       res.send(result)
 
     })
 
     // Task Collection here
-    app.get('/allTask/:email', async(req, res)=>{
+    app.get('/allTask/:email', async (req, res) => {
       const email = req.params.email
       const query = { email: email }
-      const result= await taskCollection.find(query).toArray()
+      const result = await taskCollection.find(query).toArray()
       res.send(result)
     })
- 
+
+    // Single Task api
+    app.get('/singleTask/:id', async (req, res) => {
+      const getId = req.params.id;
+      const query = { _id: new ObjectId(getId) }
+      const result = await taskCollection.findOne(query)
+      res.send(result)
+    })
+
+    // task Delete Api
+    app.delete('/taskdelete/:id', async (req, res) => {
+      const getId = req.params.id
+      const query = { _id: new ObjectId(getId) }
+      const result = await taskCollection.deleteOne(query)
+      res.send(result)
+    })
+    // task Update API
+    app.put('/taskupdate/:id', async (req, res) => {
+      const getId = req.params.id
+      const filter = { _id: new ObjectId(getId) }
+      const options = { upsert: true }
+      const task = req.body
+      const updateTask = {
+        $set: {
+          title: task.title,
+          priority: task.priority,
+          status: task.status,
+          descriptions: task.descriptions,
+          date: task.date
+        }
+      }
+      const result = await taskCollection.updateOne(filter, updateTask, options)
+      res.send(result)
+    })
+
     // Send a ping to confirm a successful connection
     await client.db('admin').command({ ping: 1 })
     console.log(
       'Pinged your deployment. You successfully connected to MongoDB!'
     )
   } finally {
-   
+
   }
 }
 run().catch(console.dir)

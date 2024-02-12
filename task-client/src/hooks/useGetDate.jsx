@@ -5,7 +5,7 @@ const useGetDate = () => {
   const { refetch, isPending, error, data } = useQuery({
     queryKey: ['alltask', user?.email],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/allTask/${user?.email}`)
+      const res = await fetch(`https://task-server-sand.vercel.app/allTask/${user?.email}`)
       return res.json()
     }
   })

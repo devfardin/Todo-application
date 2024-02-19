@@ -12,7 +12,7 @@
   - Closed tasks
   
 - Users can easily create a new task with a single click.
-- Users have the ability to delete their current tasks.
+- Users can delete their current tasks.
 - Users can update their tasks as needed.
 
 **Technologies Used:**
